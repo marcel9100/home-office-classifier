@@ -1,3 +1,4 @@
 
 opencv-contrib-python==4.1.2.30
 opencv-python==4.1.2.30
+matplotlib==3.2.1
