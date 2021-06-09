@@ -53,5 +53,3 @@ if uploaded_file is not None:
       plt.imshow(image)
       plt.show()
 
-pip freeze > requirements.txt
-
