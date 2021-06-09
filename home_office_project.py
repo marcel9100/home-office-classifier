@@ -7,8 +7,6 @@ Original file is located at
     https://colab.research.google.com/drive/1mRe79RzyDH3GxFK8J9SodFHll-k7UNq6
 """
 
-$pip install cv2
-
 import streamlit as st
 # To make things easier later, we're also importing numpy and pandas for
 # working with sample data.
@@ -54,3 +52,6 @@ if uploaded_file is not None:
 
       plt.imshow(image)
       plt.show()
+
+pip freeze > requirements.txt
+
