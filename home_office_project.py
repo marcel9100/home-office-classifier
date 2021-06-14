@@ -25,8 +25,7 @@ import gdown
 st.set_page_config(page_title='Office', page_icon='random', layout='centered', initial_sidebar_state='auto')
 
 
-#function to bring in the model weights
-cloud_model_location =
+
 
 @st.cache
 gdown https://drive.google.com/uc?id=10BD0WcS_Kch1uva2AzwEEsuyifCM_Rz4
