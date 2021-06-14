@@ -19,15 +19,41 @@ import torch
 import torchvision
 from PIL import Image
 
-st.title('Home office classifier project')
+#initial page configuration
+st.set_page_config(page_title='Office', page_icon='random', layout='centered', initial_sidebar_state='auto')
 
-uploaded_file = st.file_uploader("Upload an image")
+
+#logos for nural and hasty
+nural_logo = '/images/Nural logo.png'
+hasty_logo = '/images/Hasty.png'
+
+#create columns for logos
+col1, col2 = st.beta_columns(2)
+
+#place the logos at the top of the page
+with col1:
+  st.image(nural_logo)
+  st.write('Nural Research')
+
+with col2:
+  st.image(hasty_logo)
+
+#title
+st.title('Home office classifier project')
+st.write('Use the sidebar on the left to upload your image and watch the magic happen')
+
+with st.sidebar:
+  my_expander = st.beta_expander('Upload image')
+  with my_expander:
+    
+    uploaded_file = st.file_uploader("Upload an image")
+
 if uploaded_file is not None:
   
   if __name__ == '__main__':
       device = torch.device('cpu' if not torch.cuda.is_available() else 'cuda')
       # Load the model
-      model = torch.jit.load('model.pt')
+      model = torch.jit.load('/model/model.pt')
       model.to(device)
 
       image = Image.open(uploaded_file)
@@ -51,5 +77,22 @@ if uploaded_file is not None:
           cv2.rectangle(image, (x1, y1), (x2, y2), (255, 0, 0), thickness=4)
 
       plt.imshow(image)
-      plt.show()
+      final = plt.gcf()
+
+      #the below gives us the output after processing
+
+      st.write('Your image with predicted items')
+      st.write(final)
+
+      st.write('In your image we see:')
+
+
+      class_names = ['chair', 'monitor', 'plant', 'lamp','desk', 'laptop']
+      cols = st.beta_columns(2)
+
+      cols[0].markdown('**Class type**')
+      cols[1].markdown('**Number found in the image**')
+      for i in class_names:
+          cols[0].markdown(i)
+          cols[1].write('2')
 
