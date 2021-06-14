@@ -64,7 +64,7 @@ if uploaded_file is not None:
   if __name__ == '__main__':
       device = torch.device('cpu' if not torch.cuda.is_available() else 'cuda')
       # Load the model
-      model = torch.jit.load('model.pt')
+      model = torch.jit.load('/app/home-office-classifier/model.pt')
       model.to(device)
 
       image = Image.open(uploaded_file)
