@@ -19,6 +19,8 @@ import torch
 import torchvision
 from PIL import Image
 import gdown
+import os  
+    
 
 
 #initial page configuration
@@ -27,7 +29,10 @@ st.set_page_config(page_title='Office', page_icon='random', layout='centered', i
 
 
 
-
+# Get the current working  
+# directory (CWD)  
+cwd = os.getcwd()
+st.write(cwd)
 #logos for nural and hasty
 nural_logo = '/images/Nural logo.png'
 hasty_logo = '/images/Hasty.png'
@@ -52,6 +57,14 @@ with st.sidebar:
   with my_expander:
     
     uploaded_file = st.file_uploader("Upload an image")
+
+
+#@st.cache
+with st.spinner('Downloading the model...'):
+	url = 'https://drive.google.com/uc?id=10BD0WcS_Kch1uva2AzwEEsuyifCM_Rz4'
+	output = 'model.pt'
+	gdown.download(url, output, quiet=False)
+st.success('Done!')
 
 if uploaded_file is not None:
   
