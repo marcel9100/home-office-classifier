@@ -6,3 +6,7 @@ torch==1.8.1
 torchsummary==1.5.1
 torchtext==0.9.1
 torchvision==0.9.1
+gdown
+
+#needed to download the model
+requests

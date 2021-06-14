@@ -18,10 +18,18 @@ import matplotlib.pyplot as plt
 import torch
 import torchvision
 from PIL import Image
+import gdown
+
 
 #initial page configuration
 st.set_page_config(page_title='Office', page_icon='random', layout='centered', initial_sidebar_state='auto')
 
+
+#function to bring in the model weights
+cloud_model_location =
+
+@st.cache
+gdown https://drive.google.com/uc?id=10BD0WcS_Kch1uva2AzwEEsuyifCM_Rz4
 
 #logos for nural and hasty
 nural_logo = '/images/Nural logo.png'
@@ -53,7 +61,7 @@ if uploaded_file is not None:
   if __name__ == '__main__':
       device = torch.device('cpu' if not torch.cuda.is_available() else 'cuda')
       # Load the model
-      model = torch.jit.load('/model/model.pt')
+      model = torch.jit.load('model.pt')
       model.to(device)
 
       image = Image.open(uploaded_file)
