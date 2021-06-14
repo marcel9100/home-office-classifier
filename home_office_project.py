@@ -34,8 +34,8 @@ st.set_page_config(page_title='Office', page_icon='random', layout='centered', i
 cwd = os.getcwd()
 st.write(cwd)
 #logos for nural and hasty
-nural_logo = '/images/Nural logo.png'
-hasty_logo = '/images/Hasty.png'
+nural_logo = 'images/Nural logo.png'
+hasty_logo = 'images/Hasty.png'
 
 #create columns for logos
 col1, col2 = st.beta_columns(2)
