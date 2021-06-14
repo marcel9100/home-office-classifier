@@ -28,7 +28,11 @@ st.set_page_config(page_title='Office', page_icon='random', layout='centered', i
 
 
 @st.cache
-gdown https://drive.google.com/uc?id=10BD0WcS_Kch1uva2AzwEEsuyifCM_Rz4
+with st.spinner('Downloading the model...'):
+	url = 'https://drive.google.com/uc?id=10BD0WcS_Kch1uva2AzwEEsuyifCM_Rz4'
+	output = 'model.pt'
+	gdown.download(url, output, quiet=False)
+st.success('Done!')
 
 #logos for nural and hasty
 nural_logo = '/images/Nural logo.png'
