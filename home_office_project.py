@@ -27,7 +27,7 @@ st.set_page_config(page_title='Office', page_icon='random', layout='centered', i
 
 
 
-@st.cache
+#@st.cache
 with st.spinner('Downloading the model...'):
 	url = 'https://drive.google.com/uc?id=10BD0WcS_Kch1uva2AzwEEsuyifCM_Rz4'
 	output = 'model.pt'
