@@ -28,7 +28,7 @@ st.set_page_config(page_title='Office', page_icon='random', layout='centered', i
 
 
 #logos for nural and hasty
-nural_logo = 'images/Nural logo.png'
+nural_logo = images/Nural logo.png
 hasty_logo = 'images/Hasty.png'
 
 #create columns for logos
