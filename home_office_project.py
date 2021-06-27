@@ -56,7 +56,7 @@ with st.sidebar:
 @st.cache
 def downloading_from_gdrive():
 	with st.spinner('Downloading the model...'):
-		url = 'https://drive.google.com/file/d/10BD0WcS_Kch1uva2AzwEEsuyifCM_Rz4' #'https://drive.google.com/uc?id=10BD0WcS_Kch1uva2AzwEEsuyifCM_Rz4'
+		url = 'https://drive.google.com/uc?id=10BD0WcS_Kch1uva2AzwEEsuyifCM_Rz4' #'https://drive.google.com/uc?id=10BD0WcS_Kch1uva2AzwEEsuyifCM_Rz4'
 		output = 'model.pt'
 		gdown.download(url, output, quiet=False)
 	return 
