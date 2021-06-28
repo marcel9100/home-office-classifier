@@ -94,9 +94,20 @@ if uploaded_file is not None:
       for label, bbox in zip(y['pred_classes'], y['pred_boxes']):
           bbox = list(map(int, bbox))
           x1, y1, x2, y2 = bbox
+          class_idx = label.item()
+          class_name = class_mapping[class_idx] 
           cv2.rectangle(image, (x1, y1), (x2, y2), (255, 0, 0), thickness=4)
+          cv2.putText(
+              image,
+              class_name,
+              (x1, y1),
+              cv2.FONT_HERSHEY_SIMPLEX,
+              4,
+              (255, 0, 0)
+          )
           class_list[label.item()] +=1
-          
+ 
+       
 
       plt.imshow(image)
       final = plt.gcf()
