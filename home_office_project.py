@@ -109,7 +109,6 @@ if uploaded_file is not None:
       st.write('In your image we see:')
 
       
-      st.write(class_list)
 
       class_names = ['chair', 'monitor', 'plant', 'lamp','desk', 'laptop']
       cols = st.beta_columns(2)
