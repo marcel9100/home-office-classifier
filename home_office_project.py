@@ -85,13 +85,17 @@ if uploaded_file is not None:
       y['pred_boxes'] = y['pred_boxes'][to_keep]
       y['pred_classes'] = y['pred_classes'][to_keep]
 
-      class_list = []	
+#create dictionary for the classes
+      class_list = {}
+      for i in range(6):
+          class_list[i] = 0
+
       # Draw the predictions on the image
       for label, bbox in zip(y['pred_classes'], y['pred_boxes']):
           bbox = list(map(int, bbox))
           x1, y1, x2, y2 = bbox
           cv2.rectangle(image, (x1, y1), (x2, y2), (255, 0, 0), thickness=4)
-          class_list.append(label.item())
+          class_list[label.item()] +=1
           
 
       plt.imshow(image)
@@ -104,8 +108,8 @@ if uploaded_file is not None:
 
       st.write('In your image we see:')
 
-      for i in class_list:
-          st.write(i)
+      
+      st.write(class_list)
 
       class_names = ['chair', 'monitor', 'plant', 'lamp','desk', 'laptop']
       cols = st.beta_columns(2)
