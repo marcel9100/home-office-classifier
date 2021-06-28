@@ -5,3 +5,4 @@ torchsummary==1.5.1
 torchtext==0.9.1
 torchvision==0.9.1
 gdown
+streamlit
