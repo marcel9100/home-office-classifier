@@ -1,3 +1,0 @@
-RUN apt-get update
-freeglut3-dev
-libgtk2.0-dev
