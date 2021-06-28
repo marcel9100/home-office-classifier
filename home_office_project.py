@@ -78,7 +78,7 @@ if uploaded_file is not None:
       x = torch.from_numpy(image).permute(2, 0, 1).float()
       x = x.to(device)
       # Get predictions from model
-      y = model(x)
+      y = model([{'image': x}])
 
       # Post process the predicitons with nms:
       to_keep = torchvision.ops.nms(y['pred_boxes'], y['scores'], 0.2)
