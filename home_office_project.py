@@ -134,6 +134,6 @@ if uploaded_file is not None:
       cols[0].markdown('**Class type**')
       cols[1].markdown('**Number found in the image**')
       for i,j in enumerate(class_mapping):
-          cols[0].markdown(j)
+          cols[0].markdown(class_mapping[j])
           cols[1].write(class_list[i])
 
