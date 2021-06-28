@@ -104,7 +104,7 @@ if uploaded_file is not None:
               class_name,
               (x1, y1),
               cv2.FONT_HERSHEY_SIMPLEX,
-              4,
+              1,
               (255, 0, 0)
           )
           class_list[label.item()] +=1
