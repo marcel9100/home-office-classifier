@@ -90,12 +90,14 @@ if uploaded_file is not None:
       for i in range(6):
           class_list[i] = 0
 
+      class_names = ['chair', 'monitor', 'plant', 'lamp','desk', 'laptop']
+
       # Draw the predictions on the image
       for label, bbox in zip(y['pred_classes'], y['pred_boxes']):
           bbox = list(map(int, bbox))
           x1, y1, x2, y2 = bbox
           class_idx = label.item()
-          class_name = class_mapping[class_idx] 
+          class_name = class_names[class_idx] 
           cv2.rectangle(image, (x1, y1), (x2, y2), (255, 0, 0), thickness=4)
           cv2.putText(
               image,
@@ -121,7 +123,7 @@ if uploaded_file is not None:
 
       
 
-      class_names = ['chair', 'monitor', 'plant', 'lamp','desk', 'laptop']
+
       cols = st.beta_columns(2)
 
       cols[0].markdown('**Class type**')
