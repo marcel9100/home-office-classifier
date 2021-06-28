@@ -1,3 +1,2 @@
---fix-missing
-libgtk2.0
+libgtk2.0-dev
 freeglut3-dev
