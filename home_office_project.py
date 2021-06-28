@@ -116,7 +116,7 @@ if uploaded_file is not None:
 
       cols[0].markdown('**Class type**')
       cols[1].markdown('**Number found in the image**')
-      for i in class_names:
-          cols[0].markdown(i)
-          cols[1].write('2')
+      for i,j in enumerate(class_names):
+          cols[0].markdown(j)
+          cols[1].write(class_list[i])
 
