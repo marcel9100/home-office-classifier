@@ -96,7 +96,6 @@ if uploaded_file is not None:
       for i in range(6):
           class_list[i] = 0
 
-      class_names = ['chair', 'monitor', 'plant', 'lamp','desk', 'laptop']
 
       # Draw the predictions on the image
       for label, bbox in zip(y['pred_classes'], y['pred_boxes']):
@@ -134,7 +133,7 @@ if uploaded_file is not None:
 
       cols[0].markdown('**Class type**')
       cols[1].markdown('**Number found in the image**')
-      for i,j in enumerate(class_names):
+      for i,j in enumerate(class_mapping):
           cols[0].markdown(j)
           cols[1].write(class_list[i])
 
