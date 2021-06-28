@@ -63,6 +63,11 @@ def downloading_from_gdrive():
 
 downloading_from_gdrive()
 
+with open('class_mapping.json') as data:
+    mappings = json.load(data)
+
+class_mapping = {item['model_idx']: item['class_name'] for item in mappings}
+
 if uploaded_file is not None:
   
   if __name__ == '__main__':
@@ -97,7 +102,7 @@ if uploaded_file is not None:
           bbox = list(map(int, bbox))
           x1, y1, x2, y2 = bbox
           class_idx = label.item()
-          class_name = class_names[class_idx] 
+          class_name = class_mapping[class_idx] 
           cv2.rectangle(image, (x1, y1), (x2, y2), (255, 0, 0), thickness=4)
           cv2.putText(
               image,
