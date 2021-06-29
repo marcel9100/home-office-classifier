@@ -38,7 +38,7 @@ col1, col2 = st.beta_columns(2)
 #place the logos at the top of the page
 with col1:
   st.image(nural_logo)
-  st.write('Nural Research')
+
 
 with col2:
   st.image(hasty_logo)
@@ -47,6 +47,7 @@ with col2:
 st.title('Home office classifier project')
 st.write('Use the sidebar on the left to upload your image and watch the magic happen')
 
+#create a sidebar which is where the image is being uploaded
 with st.sidebar:
   my_expander = st.beta_expander('Upload image')
   with my_expander:
@@ -54,6 +55,7 @@ with st.sidebar:
     uploaded_file = st.file_uploader("Upload an image")
 
 
+#download the model from the google folder
 @st.cache
 def downloading_from_gdrive():
 	with st.spinner('Downloading the model...'):
@@ -64,11 +66,15 @@ def downloading_from_gdrive():
 
 downloading_from_gdrive()
 
+
+#download the class mappings which maps index to class names
 with open('class_mapping.json') as data:
     mappings = json.load(data)
 
 class_mapping = {item['model_idx']: item['class_name'] for item in mappings}
 
+
+#script to run after an image is uploaded
 if uploaded_file is not None:
   
   if __name__ == '__main__':
@@ -91,7 +97,7 @@ if uploaded_file is not None:
       y['pred_boxes'] = y['pred_boxes'][to_keep]
       y['pred_classes'] = y['pred_classes'][to_keep]
 
-#create dictionary for the classes
+      #create dictionary for the classes
       class_list = {}
       for i in range(6):
           class_list[i] = 0
@@ -119,8 +125,16 @@ if uploaded_file is not None:
       plt.imshow(image)
       final = plt.gcf()
 
+      #score calculation
+      score = 0
+      for i,j in enumerate(class_mapping):
+          score += class_list[i]
+          
+
       #the below gives us the output after processing
 
+      st.markdown('**Your final score is**')
+      st.write(score)
       st.write('Your image with predicted items')
       st.write(final)
 
