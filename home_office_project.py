@@ -133,7 +133,7 @@ if uploaded_file is not None:
 
       #the below gives us the output after processing
 
-      st.markdown('**Your final score is**', score)
+      st.markdown('**Your final score is**')
       st.write(score)
       st.write('Your image with predicted items')
       st.write(final)
