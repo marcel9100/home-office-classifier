@@ -138,7 +138,8 @@ if uploaded_file is not None:
         score = 0
         for i,j in enumerate(class_mapping):
             score += class_list[i] * gauss(5,3)
-          
+
+        score = int(score) 
 
         #the below gives us the output after processing
 
@@ -147,9 +148,9 @@ if uploaded_file is not None:
         st.write('Your image with predicted items')
         st.write(final)
 
-        for i,j in enumerate(class_list):
-            if j == 0:
-                st.write(fun_phrases[i])
+        for i in class_list:
+            if class_list[i] == 0:
+                st.markdown(**fun_phrases[i]**)
 
         st.write('In your image we see:')
 
