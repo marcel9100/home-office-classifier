@@ -155,7 +155,7 @@ if uploaded_file is not None:
         
         for i in class_list:
             if class_list[i] == 0:
-                st.markdown(f'<mark>{fun_phrases[i]}</mark>', unsafe_allow_html=True)
+                st.markdown(f'{fun_phrases[i]}')#, unsafe_allow_html=True)
 
         if 0 not in class_list.values():
             st.markdown(f'<mark> Your home office has most of the basics... How boring!</mark>', unsafe_allow_html=True)       
