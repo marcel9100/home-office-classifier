@@ -77,7 +77,7 @@ class_mapping = {item['model_idx']: item['class_name'] for item in mappings}
 #table to hold fun phrases for after the model
 fun_phrases = ["where are you going to sit??!",
 "hmm, you'll probably need a desk in your office!",
-"Try using a laptop, you can take it wherever you go",
+"Try using a laptop, you can take it wherever you go!!",
 "Plants will save the world! Add some to your office...",
 "A big monitor in your office would double your productivity!",
 "It's awfully dar in your office, try adding a lamp!"]
@@ -150,7 +150,7 @@ if uploaded_file is not None:
 
         for i in class_list:
             if class_list[i] == 0:
-                st.markdown(f'<mark>**{fun_phrases[i]}**</mark>', unsafe_allow_html=True)
+                st.markdown(f'<mark>##{fun_phrases[i]}</mark>', unsafe_allow_html=True)
 
         st.write('In your image we see:')
 
