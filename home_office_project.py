@@ -20,7 +20,7 @@ import torchvision
 from PIL import Image
 import gdown
 import json
-  
+from random import gauss
     
 
 
@@ -37,11 +37,11 @@ col1, col2 = st.beta_columns(2)
 
 #place the logos at the top of the page
 with col1:
-  st.image(nural_logo)
+    st.image(nural_logo)
 
 
 with col2:
-  st.image(hasty_logo)
+    st.image(hasty_logo)
 
 #title
 st.title('Home office classifier project')
@@ -49,20 +49,21 @@ st.write('Use the sidebar on the left to upload your image and watch the magic h
 
 #create a sidebar which is where the image is being uploaded
 with st.sidebar:
-  my_expander = st.beta_expander('Upload image')
-  with my_expander:
+    my_expander = st.beta_expander('Upload image')
+    with my_expander:
     
-    uploaded_file = st.file_uploader("Upload an image")
+        uploaded_file = st.file_uploader("Upload an image")
 
 
 #download the model from the google folder
 @st.cache
 def downloading_from_gdrive():
 	with st.spinner('Downloading the model...'):
-		url = 'https://drive.google.com/uc?id=1_ALUSj4aRHw3-lEGuxeDVOB-nJKb09PL'
-		output = 'model.pt'
-		gdown.download(url, output, quiet=False)
-	return 
+	    url = 'https://drive.google.com/uc?id=1_ALUSj4aRHw3-lEGuxeDVOB-nJKb09PL'
+	    output = 'model.pt'
+	    gdown.download(url, output, quiet=False)
+        
+
 
 downloading_from_gdrive()
 
@@ -73,81 +74,93 @@ with open('class_mapping.json') as data:
 
 class_mapping = {item['model_idx']: item['class_name'] for item in mappings}
 
+#table to hold fun phrases for after the model
+fun_phrases = ["where are you going to sit??!",
+"hmm, you'll probably need a desk in your office!",
+"Try using a laptop, you can take it wherever you go",
+"Plants will save the world! Add some to your office...",
+"A big monitor in your office would double your productivity!",
+"It's awfully dar in your office, try adding a lamp!"]
 
 #script to run after an image is uploaded
 if uploaded_file is not None:
   
-  if __name__ == '__main__':
-      device = torch.device('cpu' if not torch.cuda.is_available() else 'cuda')
-      # Load the model
-      model = torch.jit.load('/app/home-office-classifier/model.pt')
-      model.to(device)
+    if __name__ == '__main__':
+        device = torch.device('cpu' if not torch.cuda.is_available() else 'cuda')
+        # Load the model
+        model = torch.jit.load('/app/home-office-classifier/model.pt')
+        model.to(device)
 
-      image = Image.open(uploaded_file)
-      # Resize your image if needed like so:
-      # image = image.resize((some_width, some_height))
-      image = np.array(image).astype(np.uint8)
-      x = torch.from_numpy(image).permute(2, 0, 1).float()
-      x = x.to(device)
-      # Get predictions from model
-      y = model([{'image': x}])
+        image = Image.open(uploaded_file)
+        # Resize your image if needed like so:
+        # image = image.resize((some_width, some_height))
+        image = np.array(image).astype(np.uint8)
+        x = torch.from_numpy(image).permute(2, 0, 1).float()
+        x = x.to(device)
+        # Get predictions from model
+        y = model([{'image': x}])
 
-      # Post process the predicitons with nms:
-      to_keep = torchvision.ops.nms(y['pred_boxes'], y['scores'], 0.2)
-      y['pred_boxes'] = y['pred_boxes'][to_keep]
-      y['pred_classes'] = y['pred_classes'][to_keep]
+        # Post process the predicitons with nms:
+        to_keep = torchvision.ops.nms(y['pred_boxes'], y['scores'], 0.2)
+        y['pred_boxes'] = y['pred_boxes'][to_keep]
+        y['pred_classes'] = y['pred_classes'][to_keep]
 
-      #create dictionary for the classes
-      class_list = {}
-      for i in range(6):
-          class_list[i] = 0
+        #create dictionary for the classes
+        class_list = {}
+        for i in range(6):
+            class_list[i] = 0
 
 
-      # Draw the predictions on the image
-      for label, bbox in zip(y['pred_classes'], y['pred_boxes']):
-          bbox = list(map(int, bbox))
-          x1, y1, x2, y2 = bbox
-          class_idx = label.item()
-          class_name = class_mapping[class_idx] 
-          cv2.rectangle(image, (x1, y1), (x2, y2), (255, 0, 0), thickness=4)
-          cv2.putText(
-              image,
-              class_name,
-              (x1, y1),
-              cv2.FONT_HERSHEY_SIMPLEX,
-              1,
-              (255, 0, 0)
-          )
-          class_list[label.item()] +=1
+        # Draw the predictions on the image
+        for label, bbox in zip(y['pred_classes'], y['pred_boxes']):
+            bbox = list(map(int, bbox))
+            x1, y1, x2, y2 = bbox
+            class_idx = label.item()
+            class_name = class_mapping[class_idx] 
+            cv2.rectangle(image, (x1, y1), (x2, y2), (255, 0, 0), thickness=4)
+            cv2.putText(
+                image,
+                class_name,
+                (x1, y1),
+                cv2.FONT_HERSHEY_SIMPLEX,
+                1,
+                (255, 0, 0)
+            )
+            class_list[label.item()] +=1
  
        
 
-      plt.imshow(image)
-      final = plt.gcf()
+        plt.imshow(image)
+        final = plt.gcf()
 
-      #score calculation
-      score = 0
-      for i,j in enumerate(class_mapping):
-          score += class_list[i]
+        #score calculation
+        #score is randomised by gaussian distribution
+        score = 0
+        for i,j in enumerate(class_mapping):
+            score += class_list[i] * gauss(5,3)
           
 
-      #the below gives us the output after processing
+        #the below gives us the output after processing
 
-      st.markdown('**Your final score is**')
-      st.write(score)
-      st.write('Your image with predicted items')
-      st.write(final)
+        st.markdown('**Your final score is**')
+        st.write(score)
+        st.write('Your image with predicted items')
+        st.write(final)
 
-      st.write('In your image we see:')
+        for i,j in enumerate(class_list):
+            if j == 0:
+                st.write(fun_phrases[i])
+
+        st.write('In your image we see:')
 
       
 
 
-      cols = st.beta_columns(2)
+        cols = st.beta_columns(2)
 
-      cols[0].markdown('**Class type**')
-      cols[1].markdown('**Number found in the image**')
-      for i,j in enumerate(class_mapping):
-          cols[0].markdown(class_mapping[j])
-          cols[1].write(class_list[i])
+        cols[0].markdown('**Class type**')
+        cols[1].markdown('**Number found in the image**')
+        for i,j in enumerate(class_mapping):
+            cols[0].markdown(class_mapping[j])
+            cols[1].write(class_list[i])
 
