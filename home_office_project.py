@@ -150,7 +150,7 @@ if uploaded_file is not None:
 
 
         #fun image comment 
-        st.markdown('**Image comment:'
+        st.markdown('**Image comment:**')
 
         
         for i in class_list:
