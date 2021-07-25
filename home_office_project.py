@@ -143,19 +143,30 @@ if uploaded_file is not None:
 
         #the below gives us the output after processing
 
+
+        #final score
         st.markdown('**Your final score is**')
         st.write(score)
-        st.write('Your image with predicted items')
-        st.write(final)
 
+
+        #fun image comment 
+        st.markdown('**Image comment:'
+
+        
         for i in class_list:
             if class_list[i] == 0:
-                st.markdown(f'<mark>##{fun_phrases[i]}</mark>', unsafe_allow_html=True)
+                st.markdown(f'<mark>{fun_phrases[i]}</mark>', unsafe_allow_html=True)
 
+        if 0 not in class_list.values():
+            st.markdown(f'<mark> Your home office has most of the basics... How boring!</mark>', unsafe_allow_html=True)       
+
+
+        #output image alongside bounding boxes
+        st.write('Your image with predicted items')
+        st.write(final) 
+
+        #table containg numbers of each item in the image
         st.write('In your image we see:')
-
-      
-
 
         cols = st.beta_columns(2)
 
