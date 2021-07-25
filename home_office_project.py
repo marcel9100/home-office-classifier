@@ -150,7 +150,7 @@ if uploaded_file is not None:
 
         for i in class_list:
             if class_list[i] == 0:
-                st.markdown(**fun_phrases[i]**)
+                st.markdown(f'**{fun_phrases[i]}**')
 
         st.write('In your image we see:')
 
