@@ -33,7 +33,7 @@ nural_logo = 'images/Nural logo.png'
 hasty_logo = 'images/Hasty.png'
 
 #create columns for logos
-col1, col2 = st.beta_columns(2)
+col1, col2 = st.columns(2)
 
 #place the logos at the top of the page
 with col1:
@@ -49,7 +49,7 @@ st.write('Use the sidebar on the left to upload your image and watch the magic h
 
 #create a sidebar which is where the image is being uploaded
 with st.sidebar:
-    my_expander = st.beta_expander('Upload image')
+    my_expander = st.expander('Upload image')
     with my_expander:
     
         uploaded_file = st.file_uploader("Upload an image")
